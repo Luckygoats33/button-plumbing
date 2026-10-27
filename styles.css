@@ -123,55 +123,133 @@ a:hover { color: var(--copper); }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* ===== PIPE DIVIDERS — Mario-style warp pipes ===== */
-.pipe-divider {
-  position: relative; z-index: 5; display: flex;
-  justify-content: center; margin: -2px 0; line-height: 0;
-  pointer-events: none;
-}
-.pipe-divider svg { display: block; }
-.pipe-divider-left {
-  position: relative; z-index: 5;
-  margin: -2px 0; line-height: 0; pointer-events: none;
-}
-.pipe-divider-left svg { display: block; margin-left: 8%; }
-.pipe-divider-right {
-  position: relative; z-index: 5;
-  margin: -2px 0; line-height: 0; pointer-events: none;
-  text-align: right;
-}
-.pipe-divider-right svg { display: block; margin-left: auto; margin-right: 8%; }
+/* ===== PIPES — bold Mario-style warp pipes ===== */
 
-.pipe-corner {
-  position: absolute; z-index: 4; pointer-events: none;
+/* --- Horizontal full-width pipe divider --- */
+.pipe-h {
+  position: relative; z-index: 10; height: 36px; overflow: visible;
+  background: linear-gradient(180deg, #9B6B3F 0%, #8B5E3C 8%, #7A5230 20%, #5C3A1E 55%, #7A5230 80%, #8B5E3C 92%, #9B6B3F 100%);
+  box-shadow: inset 0 2px 6px rgba(168,120,77,0.25), inset 0 -2px 6px rgba(74,46,21,0.25), 0 4px 12px rgba(0,0,0,0.15);
 }
-.pipe-corner svg { display: block; }
-
-.pipe-accent {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+/* Top rim / lip — wider than body */
+.pipe-h::before {
+  content: ''; position: absolute;
+  top: -14px; left: 0; right: 0; height: 18px;
+  background: linear-gradient(180deg, #B88A5A 0%, #A8784D 20%, #8B6342 60%, #6B4E2A 100%);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.12);
 }
-.pipe-accent svg { flex-shrink: 0; }
+/* Bottom rim / lip — wider than body */
+.pipe-h::after {
+  content: ''; position: absolute;
+  bottom: -14px; left: 0; right: 0; height: 18px;
+  background: linear-gradient(180deg, #6B4E2A 0%, #8B6342 40%, #A8784D 80%, #B88A5A 100%);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+/* Coupling band in the center */
+.pipe-h-coupling {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 80px; height: 48px;
+  background: linear-gradient(180deg, #A8784D 0%, #8B6342 30%, #6B4E2A 50%, #8B6342 70%, #A8784D 100%);
+  border-radius: 6px; z-index: 1;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(168,120,77,0.4);
+}
+/* Bolt detail on coupling */
+.pipe-h-coupling::before, .pipe-h-coupling::after {
+  content: ''; position: absolute; width: 10px; height: 10px;
+  border-radius: 50%; background: #5C3A1E; top: 50%; transform: translateY(-50%);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4), 0 1px 0 rgba(168,120,77,0.3);
+}
+.pipe-h-coupling::before { left: 12px; }
+.pipe-h-coupling::after { right: 12px; }
 
-/* Hero pipe decorations */
-.hero-pipes { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-.hero-pipe-left {
-  position: absolute; left: -20px; bottom: 80px;
+/* --- Vertical warp pipe --- */
+.pipe-warp {
+  position: absolute; z-index: 2; pointer-events: none;
+}
+.pipe-warp-body {
+  width: 110px;
+  background: linear-gradient(90deg, #5C3A1E 0%, #7A5230 18%, #9B6B3F 40%, #A8784D 50%, #9B6B3F 60%, #7A5230 82%, #5C3A1E 100%);
+  box-shadow: 4px 0 12px rgba(0,0,0,0.2), -4px 0 12px rgba(0,0,0,0.15);
+}
+.pipe-warp-rim {
+  width: 134px; height: 28px; margin-left: -12px;
+  background: linear-gradient(90deg, #5C3A1E 0%, #7A5230 12%, #8B6342 25%, #A8784D 40%, #B88A5A 50%, #A8784D 60%, #8B6342 75%, #7A5230 88%, #5C3A1E 100%);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25), inset 0 2px 0 rgba(184,138,90,0.4);
+}
+/* Dark opening inside the pipe */
+.pipe-warp-opening {
+  width: 80px; height: 16px; margin: 0 auto;
+  background: radial-gradient(ellipse, #1a0f08 40%, #3a2210 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+  position: relative; top: -6px;
+}
+
+/* Hero pipe positions */
+.hero-pipes {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none; overflow: hidden;
 }
 .hero-pipe-right {
-  position: absolute; right: 40px; top: 15%;
+  position: absolute; right: 5%; top: 0;
 }
+.hero-pipe-right .pipe-warp-body { height: 260px; }
+.hero-pipe-right .pipe-warp-rim { margin-top: 0; }
+.hero-pipe-right .pipe-warp-opening { top: auto; bottom: -4px; position: relative; }
+
 .hero-pipe-bottom {
-  position: absolute; right: 18%; bottom: 80px;
+  position: absolute; right: 20%; bottom: 80px;
 }
+.hero-pipe-bottom .pipe-warp-body { height: 180px; }
+
+.hero-pipe-left {
+  position: absolute; left: -15px; bottom: 80px;
+}
+.hero-pipe-left .pipe-warp-body { height: 220px; width: 90px; }
+.hero-pipe-left .pipe-warp-rim { width: 114px; margin-left: -12px; }
+.hero-pipe-left .pipe-warp-opening { width: 64px; }
+
+/* Pipe spacing for section dividers */
+.pipe-h-wrap {
+  position: relative; z-index: 10; margin: 0;
+  padding: 14px 0;
+}
+
 @media (max-width: 900px) {
-  .hero-pipe-right { display: none; }
+  .hero-pipe-right .pipe-warp-body { height: 180px; }
   .hero-pipe-bottom { display: none; }
-  .hero-pipe-left { left: -30px; bottom: 90px; opacity: 0.5; }
-  .pipe-divider-left svg, .pipe-divider-right svg { transform: scale(0.7); transform-origin: left top; }
-  .pipe-divider-right svg { transform-origin: right top; }
+  .hero-pipe-left .pipe-warp-body { height: 160px; width: 70px; }
+  .hero-pipe-left .pipe-warp-rim { width: 94px; }
+  .pipe-h { height: 28px; }
+  .pipe-h::before, .pipe-h::after { height: 14px; }
+  .pipe-h::before { top: -10px; }
+  .pipe-h::after { bottom: -10px; }
+  .pipe-h-wrap { padding: 10px 0; }
+  .pipe-h-coupling { width: 60px; height: 40px; }
+}
+@media (max-width: 767px) {
+  .hero-pipe-right { right: -20px; }
+  .hero-pipe-right .pipe-warp-body { height: 140px; width: 80px; }
+  .hero-pipe-right .pipe-warp-rim { width: 104px; height: 22px; }
+  .hero-pipe-left { left: -25px; }
+  .hero-pipe-left .pipe-warp-body { height: 120px; width: 60px; }
+  .hero-pipe-left .pipe-warp-rim { width: 82px; height: 20px; }
+  .pipe-h { height: 22px; }
+  .pipe-h::before { height: 12px; top: -8px; }
+  .pipe-h::after { height: 12px; bottom: -8px; }
+  .pipe-h-coupling { width: 48px; height: 34px; }
+  .pipe-h-coupling::before, .pipe-h-coupling::after { width: 8px; height: 8px; }
+  .pipe-h-coupling::before { left: 8px; }
+  .pipe-h-coupling::after { right: 8px; }
 }
 @media (max-width: 480px) {
   .hero-pipe-left { display: none; }
+  .hero-pipe-right .pipe-warp-body { height: 100px; width: 60px; }
+  .hero-pipe-right .pipe-warp-rim { width: 82px; height: 18px; }
+  .pipe-h-coupling { display: none; }
 }
 
 /* ===== NAV — slim glass bar ===== */
