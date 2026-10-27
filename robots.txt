@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /form-handler.php
+
+Sitemap: https://buttonplumbingoregon.com/sitemap.xml
